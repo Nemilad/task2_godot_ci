@@ -1,0 +1,29 @@
+services:
+  web:
+    image: gitlab/gitlab-ee:latest
+    ports:
+      - '8080:80'
+      - '443:443'
+      - '8822:22'
+      - '4567:4567'
+    volumes:
+      - './config/gitlab:/etc/gitlab'
+      - './data/gitlab:/var/opt/gitlab'
+      - './logs:/var/log/gitlab'
+    networks:
+     - gitlab-ee
+
+  runner:
+    depends_on:
+      - web
+    image: gitlab/gitlab-runner:latest
+    volumes:
+      - '/etc/gitlab-runner/config:/home/nemo/HSE/gitlab/task2_godot_ci/'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    networks:
+     - gitlab-ee
+
+networks:
+  gitlab-ee:
+    name: 'gitlab-net'
+    driver: 'bridge'

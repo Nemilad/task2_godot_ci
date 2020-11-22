@@ -1,0 +1,12 @@
+sudo docker exec -it task2_godot_ci_runner_1 gitlab-runner register \
+--non-interactive \
+--url http://172.18.0.2/ \
+--registration-token H1piHRy2-4A5p9qx2_py \
+--executor docker \
+--docker-image alpine:latest \
+--docker-network-mode gitlab-net2
+
+For url use docker contaner ip
+Registration-token from gitlab project setting CI/CD
+Docker-network-mode is the same as in network name docker-compose file
+
